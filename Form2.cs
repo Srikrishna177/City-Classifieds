@@ -7,30 +7,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.Sql;
-using MySql.Data.MySqlClient;
 
-namespace WindowsFormsApp8
+namespace WindowsFormsApp9
 {
     public partial class Form2 : Form
     {
-        public Form2()
+        String usern;
+        public Form2(String user)
         {
             InitializeComponent();
+            usern = user;
+            bunifuCustomLabel1.Text = bunifuCustomLabel1.Text +  user;
         }
 
-        private void BunifuThinButton21_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            MySqlConnection con3 = new MySqlConnection("Server=db4free.net;Port=3306;Database=srikrishna;Username=srikrish;password=987654321;old guids=true");
-                con3.Open();
-                MySqlDataAdapter read4 = new MySqlDataAdapter("select name,location,rating,website from details where facility='" + comboBox2.Text + "' and cityname='"+comboBox1.Text+"' and reqstatus='"+1+"'", con3);
-                DataTable ds = new DataTable();
-                read4.Fill(ds);
-                dataGridView1.DataSource = ds;
-                con3.Close();
+            Form1 f1 = new Form1();
+            this.Hide();
+            f1.Show();
         }
 
-        private void bunifuThinButton22_Click(object sender, EventArgs e)
+        private void BunifuThinButton22_Click(object sender, EventArgs e)
+        {
+            Form f3 = new Form3();
+            this.Hide();
+            f3.Show();
+
+        }
+
+        private void BunifuThinButton23_Click(object sender, EventArgs e)
+        {
+            Form f4 = new Form4(usern);
+            this.Hide();
+            f4.Show();
+        }
+
+        private void BunifuThinButton24_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void bunifuThinButton21_Click(object sender, EventArgs e)
         {
             Form5 f5 = new Form5();
             this.Hide();

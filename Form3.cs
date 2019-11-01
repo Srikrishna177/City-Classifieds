@@ -7,43 +7,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Sql;
+using MySql.Data.MySqlClient;
 
-namespace WindowsFormsApp8
+namespace WindowsFormsApp9
 {
     public partial class Form3 : Form
     {
-        String un; 
-        public Form3(String uname)
+        public Form3()
         {
-           
             InitializeComponent();
-            un = uname;
         }
 
         private void BunifuThinButton21_Click(object sender, EventArgs e)
         {
-            Form2 f2 = new Form2();
-            this.Hide();
-            f2.Show();
+            MySqlConnection con3 = new MySqlConnection("Server=db4free.net;Port=3306;Database=srikrishna;Username=srikrish;password=987654321;old guids=true");
+            con3.Open();
+            MySqlDataAdapter read4 = new MySqlDataAdapter("select name,location,rating,website from details where facility ='" + comboBox2.Text + "'", con3);
+            DataTable dtbl = new DataTable();
+            read4.Fill(dtbl);
+            dataGridView1.DataSource = dtbl;
+            con3.Close();
         }
 
-        private void BunifuThinButton24_Click(object sender, EventArgs e)
+        private void bunifuThinButton22_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-        }
-
-        private void BunifuThinButton22_Click(object sender, EventArgs e)
-        {
-            Form4 f4 = new Form4(un);
+            Form1 f1 = new Form1();
             this.Hide();
-            f4.Show();
-        }
-
-        private void BunifuThinButton23_Click(object sender, EventArgs e)
-        {
-            Form6 f6 = new Form6();
-            this.Hide();
-            f6.Show();
+            f1.Show();
         }
     }
 }

@@ -11,50 +11,31 @@ using System.Data.Sql;
 using MySql.Data.MySqlClient;
 using System.IO;
 
-namespace WindowsFormsApp8
+namespace WindowsFormsApp9
 {
     public partial class Form4 : Form
     {
-
-        int a;
-        String reqid,una;
-        public Form4(String un)
+        String un;
+        public Form4(String usern)
         {
             InitializeComponent();
-            una = un;
+            un = usern;
         }
 
-        private void BunifuFlatButton1_Click_1(object sender, EventArgs e)
+        private void bunifuThinButton21_Click(object sender, EventArgs e)
         {
-                MySqlConnection con = new MySqlConnection("Server=db4free.net;Port=3306;Database=srikrishna;Username=srikrish;password=987654321;old guids=true");
-                MySqlCommand cmd1 = new MySqlCommand("select count(username) from details where username='" + una + "'", con); 
-                con.Open();
-                MySqlDataReader read1 = cmd1.ExecuteReader();
-                if (read1.Read())
-                {
-                    a = int.Parse(read1[0].ToString());
-                }
-                read1.Close();
-                a++;
-                reqid = "requestid" + a.ToString();
-                MemoryStream ms = new MemoryStream();
-                pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
-                byte[] img = ms.ToArray();
-                MySqlCommand cmd2 = new MySqlCommand("insert into details(cityname,facility,name,location,rating,website,requestid,username,image) values('" + comboBox1.Text + "','" + comboBox2.Text + "','" + bunifuCustomTextbox3.Text + "','" + bunifuCustomTextbox4.Text + "','" + bunifuCustomTextbox5.Text + "','" + bunifuCustomTextbox6.Text + "','" + reqid +"','"+una+"','"+img+"')", con);
-                MessageBox.Show("DATA INSERTED");
-                cmd2.ExecuteNonQuery();
-                con.Close();
-           
+            MySqlConnection con = new MySqlConnection("Server=db4free.net;Port=3306;Database=srikrishna;Username=srikrish;password=987654321;old guids=true");
+            con.Open();
+            MemoryStream ms = new MemoryStream();
+            pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
+            byte[] img = ms.ToArray();
+            MySqlCommand cmd1 = new MySqlCommand("insert into details(cityname,facility,name,location,rating,website,requestid,reqstatus,username,image) values('" + comboBox1.Text + "','" + comboBox2.Text + "','" + bunifuCustomTextbox3.Text + "','" + bunifuCustomTextbox4.Text + "','" + bunifuCustomTextbox5.Text + "','" + bunifuCustomTextbox6.Text + "','" + "nill" + "','" + 1 + "','" + un + "','"+img+"')", con);
+            cmd1.ExecuteNonQuery();
+            MessageBox.Show("Data Inserted");
+            con.Close();
         }
 
-        private void bunifuFlatButton2_Click(object sender, EventArgs e)
-        {
-            Form5 f5 = new Form5();
-            this.Hide();
-            f5.Show();
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
+        private void bunifuCustomLabel8_Click(object sender, EventArgs e)
         {
             OpenFileDialog of = new OpenFileDialog();
             of.InitialDirectory = "F:/Software development/WindowsFormsApp8";
@@ -67,6 +48,11 @@ namespace WindowsFormsApp8
             }
         }
 
-        
+        private void bunifuThinButton22_Click(object sender, EventArgs e)
+        {
+            Form1 f1 = new Form1();
+            this.Hide();
+            f1.Show();
+        }
     }
 }
